@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Requete = () => {
-    const [name, setName] = useState("");
+    const [name, setName] = useState("");// stocker ce qu'on a tapé dans l'input
     const [list, setList] = useState(() => {
         const saved = localStorage.getItem("todo_session");
         return saved ? JSON.parse(saved) : [];
@@ -11,7 +11,7 @@ const Requete = () => {
         localStorage.setItem("todo_session", JSON.stringify(list));
     }, [list]);
 
-    // STEP PUSH : On ajoute maintenant un objet avec "completed"
+    // Ajouter
     const handleAdd = () => {
         if (name.trim() !== "") {
             setList([...list, { text: name, completed: false }]); 
@@ -19,11 +19,10 @@ const Requete = () => {
         }
     };
 
-    // LA NOUVELLE LOGIQUE : Rayer le nom
+    // Rayer
     const toggleComplete = (indexToToggle) => {
         const newList = list.map((item, index) => {
             if (index === indexToToggle) {
-                // On inverse l'état barré
                 return { ...item, completed: !item.completed };
             }
             return item;
